@@ -28,7 +28,7 @@ public class Animal : MonoBehaviour
 
     void Update()
     {
-        animalCount = GameObject.FindGameObjectsWithTag("Respawn").Length;
+        animalCount = GameObject.FindGameObjectsWithTag("Animal").Length;
 
         if (animalCount == 0)
         {
