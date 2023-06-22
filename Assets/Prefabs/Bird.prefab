@@ -127,4 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c06bc326417e79246a6aff22be64d184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animalPrefab: []
+  animalRb: {fileID: 0}

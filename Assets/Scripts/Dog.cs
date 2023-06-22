@@ -4,21 +4,5 @@ using UnityEngine;
 
 public class Dog : Animal
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    protected override void Move()
-    {
-        speed = 30.0f;
-        base.Move();
-    }
+    protected override float defaultSpeed { get { return 30.0f; } }
 }

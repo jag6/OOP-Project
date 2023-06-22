@@ -2,40 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Animal : MonoBehaviour
+public abstract class Animal : MonoBehaviour
 {
-    private Rigidbody animalRb;
-    public List<GameObject> animalPrefab;
+    public Rigidbody animalRb;
 
-    protected float speed;
-
-    private int animalCount;
-    private int waveCount = 1;
-
-    protected float spawnRangeX = 10;
-    protected float spawnZMin = 15;
-    protected float spawnZMax = 25; 
+    public float speed { get; protected set; }
+    protected abstract float defaultSpeed { get; }
 
     private GameObject player;
+
+    void Awake()
+    {
+        speed = defaultSpeed;    
+    }
 
     void Start()
     {
         animalRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
-
-        Spawn(waveCount);
     }
 
     void Update()
     {
-        animalCount = GameObject.FindGameObjectsWithTag("Animal").Length;
-
-        if (animalCount == 0)
-        {
-            waveCount++;
-            Spawn(waveCount);
-        }
-
         Move();
     }
 
@@ -45,24 +33,5 @@ public class Animal : MonoBehaviour
         Vector3 lookDirection = (player.transform.position - transform.position).normalized;
 
         animalRb.AddForce(speed * Time.deltaTime * lookDirection);
-    }
-
-    protected virtual Vector3 GenerateSpawnPosition()
-    {
-        float xPos = Random.Range(-spawnRangeX, spawnRangeX);
-        float zPos = Random.Range(-spawnZMin, spawnZMax);
-
-        Vector3 randomPos = new Vector3(xPos, 0, zPos);
-        return randomPos;
-    }
-
-    void Spawn(int animalsToSpawn)
-    {
-        int index = Random.Range(0, animalPrefab.Count);
-
-        for (int i = 0; i < animalsToSpawn; i++)
-        {
-            Instantiate(animalPrefab[index], GenerateSpawnPosition(), animalPrefab[index].transform.rotation);
-        }
     }
 }
